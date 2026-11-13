@@ -1,8 +1,11 @@
 # week01 型と制御構文の再確認、配列・辞書・範囲
 
 > **氏名：** 窪田　黄菜子
+> 
 > **最終更新：** 2026-11-09
+> 
 > **AI利用レベル：** 演習は 2（生成コード可・4点セット必須）
+> 
 > **リファレンス：** swift-grammar-code の [`reference/01_basics.md`](https://github.com/NakasenJEC/swift-grammar-code/blob/main/reference/01_basics.md)
 
 ---
@@ -10,6 +13,7 @@
 ## 1. 教材コードで読めたこと（3行）
 
 （月曜に教材コードの「読む」と書かれている部分を読んで分かったことを、自分の言葉で3行。例：「`let` は一度決めたら変えられない。`var` は変えられる。Java の `final` に近いが、Swift では `let` が基本」）
+javaではvarで自動的に型を判断します。一度決まった型は変更できません。swiftではletは定数（値を変更できない）。varは変数です（値を変更できる）。swiftではInt型とDouble型を足そうとするとエラーになります。（Swiftでは型変換が必要だが、Javaでは int + double をそのまま計算できます）
 
 ## 2. 演習の記録（4点セット）
 

@@ -1,6 +1,3 @@
-// week01 の演習を終えた main.swift を、このファイルに Upload files で上書きしてください。
-// 教材コードは swift-grammar-code の week01/main.swift を Raw 表示から全選択コピーして Xcode に貼ります。
-
 // week01: 型と制御構文の再確認、配列・辞書・範囲
 // このプログラムは、1CM1 の成績を並べ替えたり、合格した人を数えたり、
 // 名前から点数を引いたりします。
@@ -51,12 +48,12 @@ print("在籍 \(names.count) 名、点数 \(scores.count) 個")
 print("先頭の人: \(names[0]) \(scores[0]) 点")
 
 let ranking = scores.sorted(by: >)
-print("sorted(by:) が返した配列: \(ranking)")
+print("sorted(by:) が返した配列: \(ranking)")  // 非破壊的
 print("もとの scores: \(scores)")
 
 var work = scores
 work[1] = 65        // 電子花子の再テストの点数に書き換えます
-work.sort()
+work.sort()              //破壊的　プロパティを自分時真を書き換える
 print("sort() の後の work: \(work)")
 print("もとの scores: \(scores)")
 
@@ -127,8 +124,15 @@ for (name, score) in scoreOf {
 
 var passers: [String] = []
 // ここに書く
+for i in        0..<names.count{
+    if scores[i] >= 60 {
+        //passersに名前を集める
+        passers.append(names[i])
+    }
+}
+print(passers)//[]
+            
 
-//let passingScore = 60;
 
 check("演習1 合格者は4名", passers.count == 4)
 check("演習1 並び順は names のまま", passers == ["電子太郎", "山田一郎", "佐藤みなみ", "グエン・アン"])
@@ -167,3 +171,88 @@ check("演習3 平均は72.0", average == 72.0)
 //  多分岐            switch (x) { case 1: ... break; }   switch x { case 1: ... }
 //                    break を書かないと次に落ちる           break は不要。網羅していないとエラー
 //  暗黙の型変換       int から double は自動               自動変換なし。Double(n) と書く
+
+
+
+// 今日の到達点
+var failers: [String] = []
+for i in 0..<names.count{
+    if scores[i]<60{
+        failers.append(names[i])
+    }
+    }
+print(failers)//["電子花子"]
+
+
+var failCount = 0
+for score in scores{
+    if score < 60{
+        failCount += 1
+    }
+}
+print(failCount) //1
+
+
+var lowCount = 0
+for (name, score)in scoreOf{
+    if score < 70{
+        print(name)
+        lowCount += 1
+    }
+}
+print(lowCount) //2
+
+//練習3
+let absences = [0,2,1,5,0]
+var absenceTotal = 0
+for absence in absences{
+    absenceTotal += absence
+}
+let absenceAverage = Double(absenceTotal)/Double(absences.count)
+print(absenceTotal, absenceAverage) //8.16
+
+
+//let scores = [82, 55, 91]
+//let ranking = scores.sorted()
+//print(scores)
+
+
+//let scores = [82, 55, 91, 60, 72]
+//var counted = 0
+//for score in scores{
+//    if score == 60{
+//        print("score == 60\n \(score)")
+//        continue
+//    }
+//    if score > 90 {
+//        
+//        break
+//    }
+//    
+//    continue += 1
+//}
+//    print(counted)
+
+
+//var total = 0
+//let scores = [82, 55, 91]
+//for score in scores{
+//    total += score
+//}
+//let average = total / scores.count //かたすいろんによってaverageは　Int型になる
+//let target = 75.5   //型推論によってtargetはdouble型になる
+//print(average + target) //エラーになる()型が合わない
+//print(Double(average)+target) //OK
+
+
+
+//let names = ["電子太郎", "電子花子", "山田一郎", "佐藤みなみ", "グエン・アン"]
+//let scores = [82, 55, 91, 60, 72]   // names と同じ並びで
+//var passers: [String] = []
+// 
+//for i in 0..<names.count{
+//    if scores[i] >= 60 {
+//        passers.append(names[i])
+//    }
+//}
+//print(passers)

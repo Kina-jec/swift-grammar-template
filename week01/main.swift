@@ -141,6 +141,11 @@ check("演習1 並び順は names のまま", passers == ["電子太郎", "山�
 
 var highScorers = 0
 // ここに書く
+for (_, score) in scoreOf {
+    if score >= 80 {
+        highScorers += 1
+    }
+}
 
 check("演習2 80点以上は2名", highScorers == 2)
 
@@ -150,6 +155,11 @@ check("演習2 80点以上は2名", highScorers == 2)
 var total = 0
 var average = 0.0
 // ここに書く
+for score in scores {
+    total += score
+}
+
+average = Double(total) / Double(scores.count)
 
 check("演習3 合計は360", total == 360)
 check("演習3 平均は72.0", average == 72.0)

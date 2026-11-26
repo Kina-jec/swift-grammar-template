@@ -2258,6 +2258,95 @@ struct RankingView: View {
 #AIに聞いてみた
 @State private var scores: [Int] = [ 3200, 5800, 2100, 12580, 6400, 8900, 4300, 10200, 7500, 3600, 9200, 5100 ] 　これは何行目ですか
 
+#回答
+(あなたが先ほど貼ってくれた RankingView では、struct RankingView: View { のすぐ下にあります。
+
+現在はここです。)
+struct RankingView: View {
+
+    @State private var scores: [Int] = []
+
+    // ランキング表示用
+    var rankingScores: [Int] {
+    (この)
+    @State private var scores: [Int] = []
+    （を削除して、仮スコアに置き換えます。）
+    struct RankingView: View {
+
+    // 仮のスコア
+    @State private var scores: [Int] = [
+        3200,
+        5800,
+        2100,
+        12580,
+        6400,
+        8900,
+        4300,
+        10200,
+        7500,
+        3600,
+        9200,
+        5100
+    ]
+
+    // ランキング表示用
+    var rankingScores: [Int] {
+        Array(scores.sorted(by: >).prefix(5))
+    }
+    （あなたが貼ってくれたコードの行数で数えると、だいたい12行目付近です。
+
+そして重要なのが、下のほうにある）
+.onAppear {
+    loadScores()
+}
+（を画面確認中だけ、）
+.onAppear {
+    // loadScores()
+}
+（にしてください。
+
+そうしないと、仮スコアを入れても loadScores() によって上書きされてしまいます。）
+
+#AIに聞いてみた
+
+（貼り付けたドキュメント）
+2は2が合体したら表示できるようにしてあるか
+
+（確認しました。現状では「2と2を合体した瞬間に2を図鑑へ登録する」処理は、この CollectionView.swift だけでは入っていません。
+
+図鑑側には discoverItem(_:) が用意されていて、値を受け取ると発見済みとして保存できます。
+
+ただし現在、）
+
+.compactMap { Int($0) } ?? [2]
+
+（つまり ?? [2] を ?? [] にします。
+
+そして、**ゲーム側の「2と2が合体した処理」**のところに、）
+discoverItem(2)
+（を入れる必要があります。
+
+ただし、もっと良い方法があります。マージゲームなので、2だけ特別扱いするのではなく、）
+discoverItem(2)
+discoverItem(4)
+discoverItem(8)
+discoverItem(16)
+...
+（と個別に書くより、合体したときに自動的に図鑑登録する仕組みにした方がいいです。
+
+例えばゲーム側で、）
+let oldValue = 2
+let newValue = oldValue * 2
+
+discoverItem(oldValue)
+discoverItem(newValue)
+（とすれば）
+2 + 2 → 4
+（を作ったときに「2」と「4」を発見済みにできます。
+
+ただ、あなたのゲーム側の「合体処理」が今どこに書かれているかが、このファイルには含まれていません。このファイルには図鑑画面と discoverItem() まではありますが、実際のマージ処理はありません。
+
+ゲーム側の GameView.swift など、**「2と2を合体して4を作っているコード」**を貼ってもらえれば、そこを見て「この行の下にこれを入れる」と具体的に示せます。）
 
 
 
